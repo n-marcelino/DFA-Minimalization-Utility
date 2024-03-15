@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DFA Minimization">
+    <meta name="keywords" content="DFA, Automata">
+    <meta name="author" content="Nico Marcelino">
+    <title>DFA Minimization Utility</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+</head>
+
+<body class="m-1">
+
+    <p class="fs-3 text-center ">DFA Minimalization Utility</p>
+    <hr>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="table-responsive col-md-6">
+                <p class="fs-5">Input your transition table:</p>
+                <table id="input" class="table table-hover table-bordered text-center ">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col" rowspan="2" class="align-middle">States</th>
+                            <th scope="col" colspan="2" class="align-middle">Input</th>
+                        </tr>
+                        <tr>
+                            <th id="input_i1" scope="col">1</th>
+                            <th id="input_i0" scope="col">0</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="buttonRow">
+                            <th scope="row">
+                                <button type="button" class="btn btn-secondary" onclick="addState()">
+                                    Add State
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-plus" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                                    </svg>
+                                </button>
+                            </th>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        <tr class="table-light">
+                            <th scope="col" colspan="3" class="align-middle">
+                                Toolbox
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <td colspan="3">
+                                <table class="table text-center m-0 table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <button onclick="editState()" id="editButton" type="button"
+                                                    class="btn btn-warning text-nowrap">
+                                                    Edit
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-pencil-square"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                                        <path fill-rule="evenodd"
+                                                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                This button lets you change the names of the states as well as the input
+                                                symbols.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <button id="setButton" onclick="setState()" type="button"
+                                                    class="btn btn-info text-nowrap">
+                                                    Set
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd"
+                                                            d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z" />
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                This button will allow you to set your initial state and final state(s).
+                                                <span class="text-primary">Blue</span> is your <span
+                                                    class="text-primary">initial state</span> and <span
+                                                    class="text-success">green</span> is/are your <span
+                                                    class="text-success">final state(s)</span>.
+                                            </td>
+                                        </tr>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button onclick="" type="button" class="btn btn-primary text-nowrap">
+                                    Minimize
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-dash-square" viewBox="0 0 16 16">
+                                        <path
+                                            d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
+                                    </svg>
+                                </button>
+                            </td>
+                            <td>
+                                This button will generate the transition table of the minimized DFA.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button onclick="resetTable()" type="button" class="btn btn-danger text-nowrap">
+                                    Reset
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
+                                        <path
+                                            d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z" />
+                                        <path
+                                            d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                                    </svg>
+                                </button>
+                            </td>
+                            <td>
+                                This button returns the transition table to the default configuration.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </td>
+                </tr>
+
+                </tbody>
+                </table>
+            </div>
+
+            <div class="table-responsive col-md-6">
+                <p class="fs-5">Minimized DFA:</p>
+                <table id="result" class="table table-hover table-bordered text-center ">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col" rowspan="2" class="align-middle">States</th>
+                            <th scope="col" colspan="2" class="align-middle">Input</th>
+                        </tr>
+                        <tr>
+                            <th id="result_i1" scope="col">1</th>
+                            <th id="result_i0" scope="col">0</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer class="container-fluid my-5">
+        <table class="table table-hover table-bordered ">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col" colspan="2" class="align-middle text-center">About</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <th scope="row" class="table-light text-center">Author</th>
+                    <td>Nico Marcelino</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="table-light text-center">Description</th>
+                    <td>The DFA Minimalization Utility is an educational tool for learning Automata Theory,
+                        specifically DFA. It makes use of transition tables in order to generate the equivalent DFA with
+                        the minimal amount of states.</td>
+                </tr>
+            </tbody>
+        </table>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

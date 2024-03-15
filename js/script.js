@@ -211,7 +211,7 @@ function saveSetState() {
     button.classList.replace("btn-success", "btn-info");
 
     // Change button text back to "Set"
-    textNode.textContent = "Set";
+    textNode.textContent = "Set ";
 
     // Remove the button groups added during setState
     let cells = document.querySelectorAll('[id^="input_q"]:not([id$="_t1"]):not([id$="_t0"])');

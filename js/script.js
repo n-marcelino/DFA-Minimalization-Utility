@@ -81,38 +81,95 @@ function saveEditState() {
     // Get the button element
     let button = document.getElementById("editButton");
 
-    // Get the text node containing the button's text
-    let textNode = button.firstChild;
-
-    // Toggle button class from btn-success to btn-warning
-    button.classList.replace("btn-success", "btn-warning");
-
-    // Set the text content of the text node back to "Edit"
-    textNode.textContent = "Edit ";
-
     // Get all editable cells
     let cells = document.querySelectorAll('[contenteditable="true"]');
+    let uniqueTexts = new Set();
+    let duplicateFound = false;
 
-    // Iterate over each cell and make its content non-editable
+    // Iterate over each cell and make sure all is unique
     cells.forEach(cell => {
-        cell.contentEditable = false;
-        cell.innerText = cell.innerText.trim();
-        cell.classList.remove("table-warning");
-    });
-
-    // Set the content of corresponding input symbol cells to result table
-    let inputCells = document.querySelectorAll('[id^="input_i"]');
-    inputCells.forEach(inputCell => {
-        let inputId = inputCell.id;
-        let resultId = inputId.replace("input_", "result_");
-        let resultCell = document.getElementById(resultId);
-
-        // Only update the result cell if the input cell has been edited
-        if (inputCell.innerText.trim() !== resultCell.innerText.trim()) {
-            resultCell.innerText = inputCell.innerText;
+        if (!uniqueTexts.has(cell.innerText)) {
+            uniqueTexts.add(cell.innerText);
+        } else {
+            duplicateFound = true;
         }
+
     });
+
+    // Add alert if duplicate names are found
+    if (duplicateFound) {
+        // Create toast container div
+        displayAlert();
+    } else {
+        // Get the text node containing the button's text
+        let textNode = button.firstChild;
+
+        // Toggle button class from btn-success to btn-warning
+        button.classList.replace("btn-success", "btn-warning");
+
+        // Set the text content of the text node back to "Edit"
+        textNode.textContent = "Edit ";
+
+        // Iterate over each cell and make its content non-editable
+        cells.forEach(cell => {
+            cell.contentEditable = false;
+            cell.classList.remove("table-warning")
+        });
+
+        // Set the content of corresponding input symbol cells to result table
+        let inputCells = document.querySelectorAll('[id^="input_i"]');
+        inputCells.forEach(inputCell => {
+            let inputId = inputCell.id;
+            let resultId = inputId.replace("input_", "result_");
+            let resultCell = document.getElementById(resultId);
+
+            // Only update the result cell if the input cell has been edited
+            if (inputCell.innerText.trim() !== resultCell.innerText.trim()) {
+                resultCell.innerText = inputCell.innerText;
+            }
+        });
+    }
 }
+
+function displayAlert() {
+    // Create alert div
+    let alertDiv = document.createElement('div');
+    alertDiv.classList.add('alert', 'alert-danger', 'alert-dismissible', 'fade', 'show', 'position-fixed', 'bottom-0', 'end-0', 'me-3'); // Added 'me-3' for margin
+
+    // Calculate the total height of existing alerts
+    let existingAlerts = document.querySelectorAll('.alert');
+    let totalHeight = 0;
+    existingAlerts.forEach(alert => {
+        totalHeight += alert.offsetHeight + 10; // Add 10 pixels for margin between alerts
+    });
+
+    // Set the bottom margin of the new alert based on the total height of existing alerts
+    alertDiv.style.marginBottom = totalHeight + 'px';
+
+    alertDiv.setAttribute('role', 'alert');
+    alertDiv.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
+            <path
+                d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z" />
+            <path
+                d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+        </svg>
+        <strong>Warning:</strong> Duplicates are not allowed.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+
+    // Append alert div to the document body
+    document.body.appendChild(alertDiv);
+
+    // Automatically dismiss the alert after a certain duration (e.g., 5 seconds)
+    setTimeout(function() {
+        alertDiv.remove();
+    }, 5000);
+}
+
+
+
 
 function setState() {
     let button = document.getElementById("setButton");

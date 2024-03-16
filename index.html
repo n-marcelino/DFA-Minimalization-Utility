@@ -47,8 +47,8 @@
                                     </svg>
                                 </button>
                             </th>
-                            <td></td>
-                            <td></td>
+                            <td class="align-middle"></td>
+                            <td class="align-middle"></td>
                         </tr>
 
                         <tr class="table-light">
@@ -62,7 +62,7 @@
                                 <table class="table text-center m-0 table-bordered">
                                     <tbody>
                                         <tr>
-                                            <td>
+                                            <td class="align-middle">
                                                 <button onclick="editState()" id="editButton" type="button"
                                                     class="btn btn-warning text-nowrap">
                                                     Edit
@@ -76,16 +76,16 @@
                                                     </svg>
                                                 </button>
                                             </td>
-                                            <td>
+                                            <td class="align-middle">
                                                 This button lets you change the names of the states as well as the input
                                                 symbols.
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>
-                                                <button id="setButton" onclick="setState()" type="button"
+                                            <td class="align-middle">
+                                                <button id="setStateButton" onclick="setState()" type="button"
                                                     class="btn btn-info text-nowrap">
-                                                    Set
+                                                    State
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                         fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
                                                         <path fill-rule="evenodd"
@@ -93,7 +93,7 @@
                                                     </svg>
                                                 </button>
                                             </td>
-                                            <td>
+                                            <td class="align-middle">
                                                 This button will allow you to set your initial state and final state(s).
                                                 <span class="text-primary">Blue</span> is your <span
                                                     class="text-primary">initial state</span> and <span
@@ -101,46 +101,64 @@
                                                     class="text-success">final state(s)</span>.
                                             </td>
                                         </tr>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button onclick="" type="button" class="btn btn-primary text-nowrap">
-                                    Minimize
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-dash-square" viewBox="0 0 16 16">
-                                        <path
-                                            d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
-                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
-                                    </svg>
-                                </button>
-                            </td>
-                            <td>
-                                This button will generate the transition table of the minimized DFA.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button onclick="resetTable()" type="button" class="btn btn-danger text-nowrap">
-                                    Reset
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
-                                        <path
-                                            d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z" />
-                                        <path
-                                            d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
-                                    </svg>
-                                </button>
-                            </td>
-                            <td>
-                                This button returns the transition table to the default configuration.
+                                        <tr>
+                                            <td class="align-middle">
+                                                <button id="setTransitionButton" onclick="setTransitionState()" type="button"
+                                                    class="btn btn-info text-nowrap">
+                                                    Transition
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd"
+                                                            d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z" />
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                            <td class="align-middle">
+                                                This button will allow you to set your transitions.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">
+                                                <button onclick="" type="button" class="btn btn-primary text-nowrap">
+                                                    Minimize
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-dash-square"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                                                        <path
+                                                            d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                            <td class="align-middle">
+                                                This button will generate the transition table of the minimized DFA.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">
+                                                <button onclick="resetTable()" type="button"
+                                                    class="btn btn-danger text-nowrap">
+                                                    Reset
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-exclamation-triangle"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z" />
+                                                        <path
+                                                            d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                            <td class="align-middle">
+                                                This button returns the transition table to the default configuration.
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </td>
                         </tr>
                     </tbody>
-                </table>
-                </td>
-                </tr>
-
-                </tbody>
                 </table>
             </div>
 
@@ -176,17 +194,18 @@
             <tbody>
                 <tr>
                     <th scope="row" class="table-light text-center">Author</th>
-                    <td>Nico Marcelino</td>
+                    <td class="align-middle">Nico Marcelino</td>
                 </tr>
                 <tr>
                     <th scope="row" class="table-light text-center">Description</th>
-                    <td>The DFA Minimalization Utility is an educational tool for learning Automata Theory,
+                    <td class="align-middle">The DFA Minimalization Utility is an educational tool for learning Automata
+                        Theory,
                         specifically DFA. It makes use of transition tables in order to generate the equivalent DFA with
                         the minimal amount of states.</td>
                 </tr>
                 <tr>
                     <th scope="row" class="table-light text-center">Relevant Links</th>
-                    <td>
+                    <td class="align-middle">
                         <div class="list-group">
                             <a target="_blank"
                                 href="https://docs.google.com/document/d/1pgcTUgcheWfmgPpKW21zi_bjpXf8nQ5DFyQwb2vDWMM/edit?usp=sharing"

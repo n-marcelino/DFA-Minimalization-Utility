@@ -1,4 +1,3 @@
-
 function addState() {
     // Get the table element in which you want to add row
     let input_table = document.getElementById("input");
@@ -25,7 +24,6 @@ function addState() {
     //naming convention: {input|result}_{state}_t{input symbol}
     c2.id = c1.id + "_t1";
     c3.id = c1.id + "_t0";
-
 }
 
 function resetTable() {
@@ -172,7 +170,7 @@ function displayAlert() {
 
 
 function setState() {
-    let button = document.getElementById("setButton");
+    let button = document.getElementById("setStateButton");
 
     // Get the text node containing the button's text
     let textNode = button.firstChild;
@@ -181,7 +179,7 @@ function setState() {
     button.classList.replace("btn-info", "btn-success");
 
     // Check if the button text is "Set" or "Confirm"
-    if (textNode.textContent.trim() === "Set") {
+    if (textNode.textContent.trim() === "Set State") {
         // If it's "Set", change it to "Confirm" and make cells editable
         textNode.textContent = "Confirm ";
 
@@ -236,7 +234,7 @@ function toggleState(event) {
     // Handle setting the state based on the clicked button
     if (event.target.textContent.trim() === "Initial") {
         // Check if any other cell already has an initial state
-        let initialCells = document.querySelectorAll('.text-primary');
+        let initialCells = document.querySelectorAll('[id^="input_q"].text-primary:not([id$="_t1"]):not([id$="_t0"])');
         initialCells.forEach(initialCell => {
             if (initialCell !== cell) {
                 // If another cell has an initial state, remove it
@@ -259,7 +257,7 @@ function toggleState(event) {
 }
 
 function saveSetState() {
-    let button = document.getElementById("setButton");
+    let button = document.getElementById("setStateButton");
 
     // Get the text node containing the button's text
     let textNode = button.firstChild;
@@ -268,7 +266,7 @@ function saveSetState() {
     button.classList.replace("btn-success", "btn-info");
 
     // Change button text back to "Set"
-    textNode.textContent = "Set ";
+    textNode.textContent = "Set State ";
 
     // Remove the button groups added during setState
     let cells = document.querySelectorAll('[id^="input_q"]:not([id$="_t1"]):not([id$="_t0"])');
@@ -285,3 +283,13 @@ function saveSetState() {
         }
     });
 }
+
+function setTransition() {
+    //grab all cells that input_q*_t{1|0}
+    let cells = document.querySelectorAll('[id^="input_q"]:not([id$="_t1"]):not([id$="_t0"])');
+
+    cells.forEach(cell=>{
+        cell.innerText = cell.id;
+    });
+}
+
